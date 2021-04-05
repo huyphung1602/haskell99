@@ -11,3 +11,5 @@
 - [ ] Questions 80 to 89: Graphs
 - [ ] Questions 90 to 94: Miscellaneous problems 
 - [ ] Questions 95 to 99: Miscellaneous problems, continued
+
+Reference (https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems)
