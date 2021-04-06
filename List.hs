@@ -23,3 +23,7 @@ myButLast' :: Foldable f => f a -> a
 myButLast' = fst . foldl (\(a, b) x -> (b, x)) (err1, err2)
   where err1 = error "No last but one element for an empty list"
         err2 = error "No last but one element for a singleton list"
+
+-- Use Maybe
+myButLast'' :: Foldable f => f a -> Maybe a
+myButLast'' = fst . foldl (\(a, b) x -> (b, Just x)) (Nothing, Nothing)
