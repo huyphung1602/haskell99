@@ -1,5 +1,4 @@
-
--- Question 1: last
+-- Question 1: Find the last element of a list.
 -- pattern matching
 myLast :: [a] -> a
 myLast [] = error "No last for an empty list"
@@ -10,7 +9,7 @@ myLast (_:xs) = myLast xs
 myLast' :: [a] -> a
 myLast' = foldl1 (\_ x -> x)
 
--- Question 2: My last but one element
+-- Question 2: Find the last but one element of a list.
 
 myButLast :: [a] -> a
 myButLast [] = error "No last but one element for an empty list"
@@ -27,3 +26,13 @@ myButLast' = fst . foldl (\(a, b) x -> (b, x)) (err1, err2)
 -- Use Maybe
 myButLast'' :: Foldable f => f a -> Maybe a
 myButLast'' = fst . foldl (\(a, b) x -> (b, Just x)) (Nothing, Nothing)
+
+-- Question 3: Find the K'th element of a list. The first element in the list is number 1.
+-- λ> elementAt [1,2,3] 2
+-- 2
+-- λ> elementAt "haskell" 5
+-- 'e'
+
+-- elementAt :: (Foldable f, Num k, Eq k, Num a) => f a -> k -> Maybe a
+elementAt :: (Foldable f, Eq k, Num k) => f a -> k -> Maybe a
+elementAt xs k = snd . foldl (\(a, b) x -> if a == k then (a + 1, Just x) else (a + 1, b)) (1, Nothing) $ xs
