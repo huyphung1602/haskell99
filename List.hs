@@ -40,3 +40,7 @@ elementAt xs k = snd . foldl (\(a, b) x -> if a == k then (a + 1, Just x) else (
 --  Find the number of elements of a list.
 myLength :: Num a => [a] -> a
 myLength = foldl (\a _ -> a + 1) 0
+
+myLength' :: Num a => [a] -> a
+myLength' [] = 0
+myLength' (_:xs) = 1 + myLength' xs
