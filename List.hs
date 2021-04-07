@@ -36,3 +36,7 @@ myButLast'' = fst . foldl (\(a, b) x -> (b, Just x)) (Nothing, Nothing)
 -- elementAt :: (Foldable f, Num k, Eq k, Num a) => f a -> k -> Maybe a
 elementAt :: (Foldable f, Eq k, Num k) => f a -> k -> Maybe a
 elementAt xs k = snd . foldl (\(a, b) x -> if a == k then (a + 1, Just x) else (a + 1, b)) (1, Nothing) $ xs
+
+--  Find the number of elements of a list.
+myLength :: Num a => [a] -> a
+myLength = foldl (\a _ -> a + 1) 0
