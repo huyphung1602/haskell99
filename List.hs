@@ -38,9 +38,9 @@ elementAt :: (Foldable f, Eq k, Num k) => f a -> k -> Maybe a
 elementAt xs k = snd . foldl (\(a, b) x -> if a == k then (a + 1, Just x) else (a + 1, b)) (1, Nothing) $ xs
 
 --  Find the number of elements of a list.
-myLength :: Num a => [a] -> a
+myLength :: (Foldable f) => f a -> Int
 myLength = foldl (\a _ -> a + 1) 0
 
-myLength' :: Num a => [a] -> a
+myLength' :: [a] -> Int
 myLength' [] = 0
 myLength' (_:xs) = 1 + myLength' xs
