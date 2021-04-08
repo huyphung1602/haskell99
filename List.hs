@@ -83,3 +83,13 @@ compress (x:xs) = x : (compress . dropWhile (== x) $ xs)
 compress' :: Eq a => [a] -> [a]
 compress' xs = foldr (\a b -> if a == head b then b else a:b) [last xs] xs
 
+-- Question 9: Pack consecutive duplicates of list elements into sublists.
+-- If a list contains repeated elements they should be placed in separate sublists.
+pack :: Eq a => [a] -> [[a]]
+pack [] = []
+pack (x:xs) = (x : takeWhile (==x) xs) : (pack . dropWhile (==x) $ xs)
+
+pack' :: Eq a => [a] -> [[a]]
+pack' = foldr packFunc []
+  where packFunc x [] = [[x]]
+        packFunc x (y:ys) = if x == head y then (x:y):ys else [x]:y:ys
