@@ -77,4 +77,9 @@ flatten' (List xs) = concatMap flatten' xs
 
 -- Question 8: Eliminate consecutive duplicates of list elements.
 compress :: Eq a => [a] -> [a]
-compress xs = foldr (\a b -> if a == head b then b else a:b) [last xs] xs
+compress [] = []
+compress (x:xs) = x : (compress . dropWhile (== x) $ xs)
+
+compress' :: Eq a => [a] -> [a]
+compress' xs = foldr (\a b -> if a == head b then b else a:b) [last xs] xs
+
