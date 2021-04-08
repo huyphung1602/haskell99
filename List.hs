@@ -54,10 +54,10 @@ myReverse [] = []
 myReverse (x:xs) = myReverse xs ++ [x]
 
 -- Question 6: Find out whether a list is a palindrome. A palindrome can be read forward or backward; e.g. (x a m a x).
+isPalindrome :: Eq a => [a] -> Bool
+isPalindrome xs = xs == reverse xs
+
 isPalindrome' :: Eq a => [a] -> Bool
 isPalindrome' [] = True
 isPalindrome' [x] = True
-isPalindrome' xs = head xs == last xs && isPalindrome(init $ tail xs)
-
-isPalindrome :: Eq a => [a] -> Bool
-isPalindrome xs = xs == reverse xs
+isPalindrome' xs = head xs == last xs && isPalindrome'(init $ tail xs)
