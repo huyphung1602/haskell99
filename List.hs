@@ -44,3 +44,6 @@ myLength = foldl (\a _ -> a + 1) 0
 myLength' :: [a] -> Int
 myLength' [] = 0
 myLength' (_:xs) = 1 + myLength' xs
+
+myLength'' :: (Foldable f) => f a -> Int
+myLength'' = foldr (const (+1)) 0
