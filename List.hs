@@ -74,3 +74,7 @@ flatten' :: NestedList a -> [a]
 flatten' (Elem x) = [x]
 -- flatten' (List xs) = foldr ((++) . flatten') [] xs
 flatten' (List xs) = concatMap flatten' xs
+
+-- Question 8: Eliminate consecutive duplicates of list elements.
+compress :: Eq a => [a] -> [a]
+compress xs = foldr (\a b -> if a == head b then b else a:b) [last xs] xs
