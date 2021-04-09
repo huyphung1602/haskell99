@@ -93,3 +93,9 @@ pack' :: Eq a => [a] -> [[a]]
 pack' = foldr packFunc []
   where packFunc x [] = [[x]]
         packFunc x (y:ys) = if x == head y then (x:y):ys else [x]:y:ys
+
+-- Question 10: Run-length encoding of a list. Use the result of problem P09 to implement the so-called run-length encoding data compression method.
+-- Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
+encode :: Eq a => [a] -> [(Int, a)]
+encode = map mergeDuplicate . pack'
+  where mergeDuplicate (x:xs) = (myLength(x:xs), x)
