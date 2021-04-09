@@ -84,3 +84,17 @@ rotate :: [a] -> Int -> [a]
 rotate xs k 
   | k >= 0 = slice xs (k + 1) (length xs) ++ slice xs 1 k
   | otherwise = slice xs 1 (length xs - abs k) ++ slice xs (length xs - abs k + 1) (length xs)
+
+-- Question 20: Remove the K'th element from a list.
+-- λ> removeAt 2 "abcd"
+-- ('b',"acd")
+removeAt :: Int -> [a] -> ([a], [a])
+removeAt k xs = (removedElem, remainList)
+  where removedElem = slice xs k k
+        remainList = slice xs 1 (k-1) ++ slice xs (k+1) (length xs)
+
+removeAt' :: Int -> [a] -> ([a], [a])
+removeAt' k = snd . foldl distribute (1, ([], []))
+  where distribute (acc, (a, b)) x
+          | acc == k = (acc + 1, (a ++ [x], b))
+          | otherwise = (acc + 1, (a, b ++ [x]))
