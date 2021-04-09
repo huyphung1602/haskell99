@@ -73,3 +73,14 @@ slice xs k j = reverse . snd . foldl appendFromTo (1, []) $ xs
           | a < k = (a+1, b)
           | a > j = (a+1, b)
           | otherwise  = (a+1, x:b)
+
+-- Question 19: Rotate a list N places to the left.
+-- Hint: Use the predefined functions length and (++).
+-- λ> rotate ['a','b','c','d','e','f','g','h'] 3
+-- "defghabc"
+-- λ> rotate ['a','b','c','d','e','f','g','h'] (-2)
+-- "ghabcdef"
+rotate :: [a] -> Int -> [a]
+rotate xs k 
+  | k >= 0 = slice xs (k + 1) (length xs) ++ slice xs 1 k
+  | otherwise = slice xs 1 (length xs - abs k) ++ slice xs (length xs - abs k + 1) (length xs)
