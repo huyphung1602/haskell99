@@ -45,3 +45,7 @@ repli (x:xs) k = replicate k x ++ repli xs k
 
 repli' :: [a] -> Int -> [a]
 repli' xs k = concatMap (replicate k) xs
+
+-- Question 16: Drop every N'th element from a list.
+dropEvery :: (Eq k, Num k) => [a] -> k -> [a]
+dropEvery xs k = snd . foldl (\(a, b) x -> if a == k then (1, b) else (a + 1, b ++ [x])) (1, []) $ xs
