@@ -11,3 +11,10 @@ pack = foldr packFunc []
 encode :: Eq a => [a] -> [Member a]
 encode = map mergeDup . pack
   where mergeDup (x:xs) = if length(x:xs) == 1 then Single x else Multiple (length(x:xs), x)
+
+-- Question 12: Decode a run-length encoded list.
+-- Given a run-length code list generated as specified in problem 11. Construct its uncompressed version.
+decodeModified :: [Member a] -> [a]
+decodeModified = concatMap unwrap
+  where unwrap (Single a) = [a]
+        unwrap (Multiple (k, a)) = replicate k a
