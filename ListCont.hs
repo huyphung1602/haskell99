@@ -35,3 +35,10 @@ encode' = foldr infuse []
 dupli :: [a] -> [a]
 dupli [] = []
 dupli (x:xs) = x:x: dupli xs
+
+-- Question 15: Replicate the elements of a list a given number of times.
+repli :: [a] -> Int -> [a]
+repli [] _ = []
+repli _ 0 = []
+repli xs 1 = xs
+repli (x:xs) k = replicate k x ++ repli xs k
