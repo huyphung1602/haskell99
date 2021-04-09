@@ -49,3 +49,8 @@ repli' xs k = concatMap (replicate k) xs
 -- Question 16: Drop every N'th element from a list.
 dropEvery :: (Eq k, Num k) => [a] -> k -> [a]
 dropEvery xs k = snd . foldl (\(a, b) x -> if a == k then (1, b) else (a + 1, b ++ [x])) (1, []) $ xs
+
+-- Question 17: Split a list into two parts; the length of the first part is given.
+-- Do not use any predefined predicates.
+split :: [a] -> Int -> ([a], [a])
+split xs k = foldl (\(a, b) x -> if length a == k then (a, b ++ [x]) else (a ++ [x], b)) ([],[]) xs
