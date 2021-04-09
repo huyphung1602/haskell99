@@ -42,3 +42,6 @@ repli [] _ = []
 repli _ 0 = []
 repli xs 1 = xs
 repli (x:xs) k = replicate k x ++ repli xs k
+
+repli' :: [a] -> Int -> [a]
+repli' xs k = concatMap (replicate k) xs
