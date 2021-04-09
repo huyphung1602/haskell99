@@ -28,3 +28,10 @@ encode' = foldr infuse []
   where infuse a [] = [Single a]
         infuse b ((Single a):xs) = if a == b then Multiple (2, a): xs else Single b: Single a: xs
         infuse b ((Multiple (k, a)):xs) = if a == b then Multiple (k + 1, a): xs else Single b: Multiple (k, a):xs
+
+-- Question 14: Duplicate the elements of a list.
+-- dupli [1,2,3]
+-- [1,1,2,2,3,3]
+dupli :: [a] -> [a]
+dupli [] = []
+dupli (x:xs) = x:x: dupli xs
