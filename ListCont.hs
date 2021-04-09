@@ -18,3 +18,15 @@ decodeModified :: [Member a] -> [a]
 decodeModified = concatMap unwrap
   where unwrap (Single a) = [a]
         unwrap (Multiple (k, a)) = replicate k a
+
+-- Question 13:  Run-length encoding of a list (direct solution).
+-- Implement the so-called run-length encoding data compression method directly.
+-- I.e. don't explicitly create the sublists containing the duplicates, as in problem 9, but only count them.
+-- As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
+infuse :: Eq a => a -> [Member a] -> [Member a]
+infuse a [] = [Single a]
+infuse b ((Single a):xs) = if a == b then Multiple (2, a): xs else Single b: Single a: xs
+infuse b ((Multiple (k, a)):xs) = if a == b then Multiple (k + 1, a): xs else Single b: Multiple (k, a):xs
+
+encode' :: Eq a => [a] -> [Member a]
+encode' = foldr infuse []
