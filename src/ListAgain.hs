@@ -1,3 +1,6 @@
+import System.Random (randomRIO)
+import Control.Monad (replicateM)
+
 -- Question 21: Insert an element at a given position into a list.
 -- λ> insertAt 'X' "abcd" 2
 -- "aXbcd"
@@ -25,3 +28,25 @@ range :: Int -> Int -> [Int]
 range x y = fst . foldr descreaseYtoX ([], 0) $ trueSizeList
   where trueSizeList = replicate (y-x+1) y
         descreaseYtoX num (arr, cnt) = ((num-cnt):arr, cnt + 1)
+
+-- Question 23: Extract a given number of randomly selected elements from a list.
+-- λ> rndSelect "abcdefgh" 3 >>= putStrLn
+-- eda
+
+rndSelect :: Num a => [a] -> Int -> IO [a]
+rndSelect _ 0 = return []
+rndSelect (x:xs) n =
+    do r <- randomRIO (0, length xs)
+       if r < n
+         then do
+           rest <- rndSelect xs (n-1)
+           return (x : rest)
+         else rndSelect xs n
+
+
+rndSelect' :: [a] -> Int -> IO [a]
+rndSelect' xs n 
+    | n < 0     = error "N must be greater than zero."
+    | otherwise = replicateM n rand
+        where rand = do r <- randomRIO (0, length xs - 1)
+                        return (xs!!r)
