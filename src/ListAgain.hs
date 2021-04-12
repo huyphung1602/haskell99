@@ -17,3 +17,11 @@ insertAt' x xs k = fst . foldl leftOrRight ([x], 1) $ xs
   where leftOrRight (acc, cnt) y
           | cnt < k = (y:acc, cnt+1)
           | otherwise = (acc ++ [y], cnt+1)
+
+-- Question 22: Create a list containing all integers within a given range.
+-- λ> range 4 9
+-- [4,5,6,7,8,9]
+range :: Int -> Int -> [Int]
+range x y = fst . foldr descreaseYtoX ([], 0) $ trueSizeList
+  where trueSizeList = replicate (y-x+1) y
+        descreaseYtoX num (arr, cnt) = ((num-cnt):arr, cnt + 1)
