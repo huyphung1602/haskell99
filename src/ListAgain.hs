@@ -9,3 +9,11 @@ insertAt x xs k = fst . foldr appendAt ([], length xs) $ xs
           | k == cnt + 1 && k > length xs = (y:x:acc, cnt - 1)
           | cnt == k = (x:y:acc, cnt - 1)
           | otherwise = (y:acc, cnt - 1)
+
+insertAt' :: a -> [a] -> Int -> [a]
+insertAt' _ xs 0 = xs
+insertAt' _ [] _ = []
+insertAt' x xs k = fst . foldl leftOrRight ([x], 1) $ xs
+  where leftOrRight (acc, cnt) y
+          | cnt < k = (y:acc, cnt+1)
+          | otherwise = (acc ++ [y], cnt+1)
