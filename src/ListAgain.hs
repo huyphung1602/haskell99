@@ -50,3 +50,17 @@ rndSelect' xs n
     | otherwise = replicateM n rand
         where rand = do r <- randomRIO (0, length xs - 1)
                         return (xs!!r)
+
+-- Question 24: Lotto: Draw N different random numbers from the set 1..M.
+-- λ> diffSelect 6 49
+-- [23,1,17,33,21,37]
+diffSelect :: Int -> Int -> IO [Int]
+diffSelect n a = diffSelect' n [1..a]
+
+diffSelect':: Int -> [a] -> IO [a]
+diffSelect' 0 _ = return []
+diffSelect' _ [] = error "No number to choose from"
+diffSelect' n xs = do r <- randomRIO (0, length xs - 1)
+                      let remainList = take r xs ++ drop (r+1) xs
+                      restRndNums <- diffSelect' (n-1) remainList
+                      return ((xs!!r):restRndNums)
